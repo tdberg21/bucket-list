@@ -7,14 +7,14 @@ const fetchBucketList = async () => {
 
 const handlePageLoad = async () => {
   const results = await fetchBucketList();
-  results.forEach(item => appendListItem(item.title, item.description, item.id))
+  results.forEach(item => prependListItem(item.title, item.description, item.id))
 }
 
 const handleSubmit = async () => {
   let title = $('.title-input').val();
   let description = $('.description-input').val();
   const results = await saveItemToDatabase(title, description);
-  appendListItem(title, description, results.id);
+  prependListItem(title, description, results.id);
   clearInputs();
 };
 
@@ -36,8 +36,8 @@ const deleteItemFromDatabase = async (id) => {
   return results;
 }
 
-const appendListItem = (title, description, id) => {
-  $('.bucket-list-container').append(`
+const prependListItem = (title, description, id) => {
+  $('.bucket-list-container').prepend(`
     <div class="list-item-card">
       <h3 class="item-title-headers">${title}</h3>
       <p class="item-description-paragraphs"> ${description} </p>
@@ -47,7 +47,7 @@ const appendListItem = (title, description, id) => {
 };
 
 const saveItemToDatabase = async (title, description) => {
-  const reponse = await fetch('/api/v1/bucketlist', {
+  const response = await fetch('/api/v1/bucketlist', {
     method: 'POST',
     body: JSON.stringify({ title, description }),
     headers: {
@@ -62,7 +62,6 @@ const clearInputs = () => {
   $('.title-input').val('');
   $('.description-input').val('');
 };
-
 
 handlePageLoad();
 $('.submit-button').on('click', handleSubmit);
