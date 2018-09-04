@@ -4,6 +4,7 @@ const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const app = require('../server.js');
+const  knex = require('../db/knex.js');
 
 chai.use(chaiHttp);
 
@@ -29,6 +30,33 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
+  
+  before((done) => {
+    knex.migrate.rollback()
+      .then(() => {
+        knex.migrate.latest()
+          .then(() => {
+            return knex.seed.run()
+              .then(() => {
+                done();
+              });
+          });
+      });
+  });
+
+  beforeEach((done) => {
+    knex.migrate.rollback()
+      .then(() => {
+        knex.migrate.latest()
+          .then(() => {
+            return knex.seed.run()
+              .then(() => {
+                done();
+              });
+          });
+      });
+  });
+
   describe('GET /api/v1/bucketlist', () => {
     it('should return a bucket list array', done => {
       chai.request(app)
