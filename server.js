@@ -12,7 +12,6 @@ app.locals.title = 'Bucket List';
 app.use(express.static('public'));
 
 app.get('/', (request, response) => {
-
 });
 
 app.get('/api/v1/bucketlist', (request, response) => {
