@@ -37,6 +37,7 @@ app.post('/api/v1/bucketlist', (request, response) => {
       response.status(201).json({ id: item[0] })
     })
     .catch(error => {
+      console.log(error)
       response.status(500).json({ error })
     })
 });
