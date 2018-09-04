@@ -1,3 +1,81 @@
+body {
+  background-color: #e5f3f2;
+}
+
+button {
+  background-color: #00a79d;
+  color: #fff;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
 h1 {
-  color: blue;
+  color: #00a79d;
+  font-family: 'Roboto Slab', serif;
+}
+
+.grey-header-text {
+  color: #6d6e71;
+}
+
+.form-container {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+input {
+  width: 180px;
+  border: 1px solid lightgrey;
+  padding: 0 10px;
+  margin: 10px 0;
+  text-overflow: wrap;
+}
+
+.title-input {
+  height: 2rem;
+}
+
+.description-input {
+  height: 4rem;
+}
+
+.submit-button {
+  width: 202px;
+  height: 2rem;
+  margin: 10px 0 20px 0;
+}
+
+.bottom-section {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #f9fcfb;
+}
+
+.bucket-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list-item-card {
+  width: 45vw;
+  border: 1px solid lightgrey;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-buttons {
+  height: 1.5rem;
+  font-size: 0.8rem;
 }

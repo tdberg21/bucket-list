@@ -39,8 +39,10 @@ const deleteItemFromDatabase = async (id) => {
 const prependListItem = (title, description, id) => {
   $('.bucket-list-container').prepend(`
     <div class="list-item-card">
-      <h3 class="item-title-headers">${title}</h3>
-      <p class="item-description-paragraphs"> ${description} </p>
+      <div class="card-text">
+        <h3 class="item-title-headers">${title}</h3>
+        <p class="item-description-paragraphs"> ${description} </p>
+      </div>
       <button class="delete-buttons ${id}" value=${id}>Delete</button>      
     </div>
   `)
