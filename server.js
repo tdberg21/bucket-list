@@ -26,7 +26,6 @@ app.get('/api/v1/bucketlist', (request, response) => {
 
 app.post('/api/v1/bucketlist', (request, response) => {
   const newItem = request.body;
-  console.log(newItem)
   for (let requiredParameter of ['title', 'description']) {
     if (!newItem[requiredParameter]) {
       return response.status(422).send({error: `You are missing a required parameter: ${requiredParameter}`})
@@ -44,7 +43,6 @@ app.post('/api/v1/bucketlist', (request, response) => {
 
 app.delete('/api/v1/bucketlist/:id', (request, response) => {
   const { id } = request.params;
-  console.log(id)
   database('listitems').where('id', id)
     .del()
     .then(item => {

@@ -110,4 +110,48 @@ describe('API Routes', () => {
         });
     });
   });
+
+  describe('DELETE /api/v1/bucketlist/:id', () => {
+    it('should delete a list item', done => {
+      chai.request(app)
+        .delete('/api/v1/bucketlist/1')
+        .end((error, response) => {
+          response.should.have.status(201);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('message');
+          response.body.message.should.equal('Item with id:1 successfully deleted');
+          chai.request(app)
+            .get('/api/v1/bucketlist')
+            .end((err, res) => {
+              res.should.have.status(200);
+              res.should.be.json;
+              res.body.should.be.a('array');
+              res.body.length.should.equal(2);
+              done();
+            });
+        });
+    });
+
+    it('should not delete a list item if id is incorrect', done => {
+      chai.request(app)
+        .delete('/api/v1/bucketlist/taco')
+        .end((error, response) => {
+          response.should.have.status(500);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          console.log(response.body)
+          response.body.should.have.property('error');
+          chai.request(app)
+            .get('/api/v1/bucketlist')
+            .end((err, res) => {
+              res.should.have.status(200);
+              res.should.be.json;
+              res.body.should.be.a('array');
+              res.body.length.should.equal(3);
+              done();
+            });
+        });
+    });
+  });
 });
