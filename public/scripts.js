@@ -18,16 +18,30 @@ const handleSubmit = async () => {
   clearInputs();
 };
 
-// const handleDelete = () => {
-//   console.log('delete')
-// }
+const handleDelete = async (event) => {
+  const results = await deleteItemFromDatabase(event.target.value);
+  if (results.message) {
+    event.target.closest('div').remove()
+  }
+}
+
+const deleteItemFromDatabase = async (id) => {
+  const response = await fetch(`/api/v1/bucketlist/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const results = await response.json();
+  return results;
+}
 
 const appendListItem = (title, description, id) => {
   $('.bucket-list-container').append(`
     <div class="list-item-card">
       <h3 class="item-title-headers">${title}</h3>
       <p class="item-description-paragraphs"> ${description} </p>
-      <button class="delete-buttons ${id}">Delete</button>      
+      <button class="delete-buttons ${id}" value=${id}>Delete</button>      
     </div>
   `)
 };
@@ -52,5 +66,5 @@ const clearInputs = () => {
 
 handlePageLoad();
 $('.submit-button').on('click', handleSubmit);
-// $('article').on('click', '.list-item-card .delete-buttons', handleDelete);
+$('section').on('click', '.list-item-card button', handleDelete);
 
