@@ -21,7 +21,7 @@ const handleSubmit = async () => {
 const handleDelete = async (event) => {
   const results = await deleteItemFromDatabase(event.target.value);
   if (results.message) {
-    event.target.closest('div').remove()
+    event.target.closest('div').remove();
   }
 }
 
