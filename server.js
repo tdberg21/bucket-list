@@ -58,3 +58,5 @@ app.delete('/api/v1/bucketlist/:id', (request, response) => {
 app.listen(process.env.PORT || 3000, () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`);
 });
+
+module.exports = app;
