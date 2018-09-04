@@ -43,6 +43,19 @@ app.post('/api/v1/bucketlist', (request, response) => {
     })
 });
 
+app.delete('/api/v1/bucketlist/:id', (request, response) => {
+  const { id } = request.params;
+  console.log(id)
+  database('listitems').where('id', id)
+    .del()
+    .then(item => {
+      response.status(201).json({message: `Item with id:${id} successfully deleted`})
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+})
+
 app.listen(3000, () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`);
 });
