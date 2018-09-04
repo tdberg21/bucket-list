@@ -1,11 +1,26 @@
 
+const fetchBucketList = async () => {
+  const response = await fetch('/api/v1/bucketlist');
+  const results = await response.json();
+  return results;
+}
+
+const handlePageLoad = async () => {
+  const results = await fetchBucketList();
+  results.forEach(item => appendListItem(item.title, item.description, item.id))
+}
+
 const handleSubmit = async () => {
   let title = $('.title-input').val();
   let description = $('.description-input').val();
-  const response = await saveItemToDatabase(title, description);
-  appendListItem(title, description, response.id);
+  const results = await saveItemToDatabase(title, description);
+  appendListItem(title, description, results.id);
   clearInputs();
 };
+
+// const handleDelete = () => {
+//   console.log('delete')
+// }
 
 const appendListItem = (title, description, id) => {
   $('.bucket-list-container').append(`
@@ -18,15 +33,15 @@ const appendListItem = (title, description, id) => {
 };
 
 const saveItemToDatabase = async (title, description) => {
-  const results = await fetch('/api/v1/bucketlist', {
+  const reponse = await fetch('/api/v1/bucketlist', {
     method: 'POST',
     body: JSON.stringify({ title, description }),
     headers: {
       'Content-Type': 'application/json'
     }
   })
-  const response = await results.json();
-  return response;
+  const results = await response.json();
+  return results;
 };
 
 const clearInputs = () => {
@@ -34,5 +49,8 @@ const clearInputs = () => {
   $('.description-input').val('');
 };
 
+
+handlePageLoad();
 $('.submit-button').on('click', handleSubmit);
+// $('article').on('click', '.list-item-card .delete-buttons', handleDelete);
 
