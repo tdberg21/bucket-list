@@ -7,7 +7,7 @@ const handleSubmit = () => {
   console.log(title, description)
   appendListItem(title, description);
   clearInputs();
-}
+};
 
 const appendListItem = (title, description) => {
   $('.bucket-list-container').append(`
@@ -17,16 +17,16 @@ const appendListItem = (title, description) => {
       <button class="delete-buttons">Delete</button>      
     </div>
   `)
-}
+};
 
 const saveItemToDatabase = (title, description) => {
   console.log('send to database');
-}
+};
 
 const clearInputs = () => {
   $('.title-input').val('');
   $('.description-input').val('');
-}
+};
 
 $('.submit-button').on('click', handleSubmit);
 
