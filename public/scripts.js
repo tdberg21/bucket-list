@@ -43,9 +43,9 @@ const prependListItem = (title, description, id) => {
         <h3 class="item-title-headers">${title}</h3>
         <p class="item-description-paragraphs"> ${description} </p>
       </div>
-      <button class="delete-buttons ${id}" value=${id}>Delete</button>      
+      <button class="delete-buttons" value=${id}>Delete</button>      
     </div>
-  `)
+  `);
 };
 
 const saveItemToDatabase = async (title, description) => {
@@ -55,7 +55,7 @@ const saveItemToDatabase = async (title, description) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  })
+  });
   const results = await response.json();
   return results;
 };

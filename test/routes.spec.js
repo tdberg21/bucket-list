@@ -69,7 +69,7 @@ describe('API Routes', () => {
           response.body[0].should.have.property('id');
           response.body[0].should.have.property('title');
           response.body[0].should.have.property('description');
-          response.body[0].id.should.equal(1);
+          response.body[0].id.should.equal(4);
           response.body[0].title.should.equal('listItem1');
           response.body[0].description.should.equal('item number 1')
           done();
@@ -82,15 +82,15 @@ describe('API Routes', () => {
       chai.request(app)
         .post('/api/v1/bucketlist')
         .send({
-          "title": "New Item Title",
-          "description": "New Item description"
+          title: 'New Item Title',
+          description: 'New Item description'
         })
         .end((error, response) => {
-          // response.should.have.status(200);
+          response.should.have.status(201);
           response.should.be.json;
-          // response.body.should.be.a('object');
-          // response.body.should.have.property('id');
-          // response.body.id.should.equal(4);
+          response.body.should.be.a('object');
+          response.body.should.have.property('id');
+          response.body.id.should.equal(1);
           done();
         });
     });
@@ -127,7 +127,7 @@ describe('API Routes', () => {
               res.should.have.status(200);
               res.should.be.json;
               res.body.should.be.a('array');
-              res.body.length.should.equal(2);
+              res.body.length.should.equal(3);
               done();
             });
         });
@@ -140,7 +140,6 @@ describe('API Routes', () => {
           response.should.have.status(500);
           response.should.be.json;
           response.body.should.be.a('object');
-          console.log(response.body)
           response.body.should.have.property('error');
           chai.request(app)
             .get('/api/v1/bucketlist')
