@@ -3,19 +3,25 @@
 
 <head>
   <title>Bucket List</title>
+  <link rel="stylesheet" type="text/css" href="./normalize.css">
   <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Bucket List</h1>
+  <header>
+    <h1>bucket<span class="grey-header-text">list</span></h1>
+  </header>
   <div class="form-container">
     <input type="text" class="inputs title-input" placeholder="Title">
     <input type="text" class="inputs description-input" placeholder="Description">
     <button class="submit-button">Add to List</button>
   </div>
-  <hr>
-  <section class="bucket-list-container">
-  </section>
+  <div class="bottom-section">
+    <hr>
+    <section class="bucket-list-container">
+    </section>
+  </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="./scripts.js"></script>
 </body>
