@@ -57,10 +57,10 @@ describe('API Routes', () => {
       });
   });
 
-  describe('GET /api/v1/bucketlist', () => {
+  describe('GET /api/v1/listitems', () => {
     it('should return a bucket list array', done => {
       chai.request(app)
-        .get('/api/v1/bucketlist')
+        .get('/api/v1/listitems')
         .end((error, response) => {
           response.should.have.status(200);
           response.should.be.json;
@@ -77,10 +77,10 @@ describe('API Routes', () => {
     });
   });
 
-  describe('POST /api/v1/bucketlist', () => {
+  describe('POST /api/v1/listitems', () => {
     it('should add a bucket list item', done => {
       chai.request(app)
-        .post('/api/v1/bucketlist')
+        .post('/api/v1/listitems')
         .send({
           title: 'New Item Title',
           description: 'New Item description'
@@ -97,7 +97,7 @@ describe('API Routes', () => {
 
     it('should not create a list item with missing parameters', done => {
       chai.request(app)
-        .post('/api/v1/bucketlist')
+        .post('/api/v1/listitems')
         .send({
           title: 'Testing'
         })
@@ -106,23 +106,24 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('object');
           response.body.should.have.property('error');
+          response.body.error.should.equal('You are missing a required parameter: description')
           done();
         });
     });
   });
 
-  describe('DELETE /api/v1/bucketlist/:id', () => {
+  describe('DELETE /api/v1/listitems/:id', () => {
     it('should delete a list item', done => {
       chai.request(app)
-        .delete('/api/v1/bucketlist/1')
+        .delete('/api/v1/listitems/1')
         .end((error, response) => {
-          response.should.have.status(201);
+          response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a('object');
           response.body.should.have.property('message');
           response.body.message.should.equal('Item with id:1 successfully deleted');
           chai.request(app)
-            .get('/api/v1/bucketlist')
+            .get('/api/v1/listitems')
             .end((err, res) => {
               res.should.have.status(200);
               res.should.be.json;
@@ -135,14 +136,14 @@ describe('API Routes', () => {
 
     it('should not delete a list item if id is incorrect', done => {
       chai.request(app)
-        .delete('/api/v1/bucketlist/taco')
+        .delete('/api/v1/listitems/taco')
         .end((error, response) => {
           response.should.have.status(500);
           response.should.be.json;
           response.body.should.be.a('object');
           response.body.should.have.property('error');
           chai.request(app)
-            .get('/api/v1/bucketlist')
+            .get('/api/v1/listitems')
             .end((err, res) => {
               res.should.have.status(200);
               res.should.be.json;
