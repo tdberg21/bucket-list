@@ -47,7 +47,7 @@ app.delete('/api/v1/listitems/:id', (request, response) => {
   database('listitems').where('id', id)
     .del()
     .then(item => {
-      response.status(201).json({message: `Item with id:${id} successfully deleted`})
+      response.status(200).json({message: `Item with id:${id} successfully deleted`})
     })
     .catch(error => {
       response.status(500).json({ error })
