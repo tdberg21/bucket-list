@@ -42,17 +42,22 @@ app.post('/api/v1/listitems', (request, response) => {
     })
 });
 
-app.delete('/api/v1/listitems/:id', (request, response) => {
-  const { id } = request.params;
-  database('listitems').where('id', id)
-    .del()
-    .then(item => {
-      response.status(200).json({message: `Item with id:${id} successfully deleted`})
-    })
-    .catch(error => {
-      response.status(500).json({ error })
-    })
-})
+app.delete('/api/v1/listitems/:id', async (request, response) => {
+  const id = request.params.id;
+  const check = await database('listitems').where({ id })
+  if (check.length) {
+    database('listitems').where({ id })
+      .del()
+      .then(item => {
+        response.status(200).json({ message: `Item with id:${id} successfully deleted` })
+      })
+      .catch(error => {
+        response.status(500).json({ error })
+      });
+  } else {
+    return response.status(404).send({ error: 'This id is invalid' })
+  }
+});
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`);
