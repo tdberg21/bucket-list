@@ -1,6 +1,6 @@
 
 const fetchBucketList = async () => {
-  const response = await fetch('/api/v1/bucketlist');
+  const response = await fetch('/api/v1/listitems');
   const results = await response.json();
   return results;
 }
@@ -26,7 +26,7 @@ const handleDelete = async (event) => {
 }
 
 const deleteItemFromDatabase = async (id) => {
-  const response = await fetch(`/api/v1/bucketlist/${id}`, {
+  const response = await fetch(`/api/v1/listitems/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const prependListItem = (title, description, id) => {
 };
 
 const saveItemToDatabase = async (title, description) => {
-  const response = await fetch('/api/v1/bucketlist', {
+  const response = await fetch('/api/v1/listitems', {
     method: 'POST',
     body: JSON.stringify({ title, description }),
     headers: {

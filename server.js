@@ -14,7 +14,7 @@ app.use(express.static('public'));
 app.get('/', (request, response) => {
 });
 
-app.get('/api/v1/bucketlist', (request, response) => {
+app.get('/api/v1/listitems', (request, response) => {
   database('listitems').select()
     .then((listitems) => {
       response.status(200).json(listitems);
@@ -24,7 +24,7 @@ app.get('/api/v1/bucketlist', (request, response) => {
     });
 });
 
-app.post('/api/v1/bucketlist', (request, response) => {
+app.post('/api/v1/listitems', (request, response) => {
   const newItem = request.body;
   for (let requiredParameter of ['title', 'description']) {
     if (!newItem[requiredParameter]) {
@@ -42,7 +42,7 @@ app.post('/api/v1/bucketlist', (request, response) => {
     })
 });
 
-app.delete('/api/v1/bucketlist/:id', (request, response) => {
+app.delete('/api/v1/listitems/:id', (request, response) => {
   const { id } = request.params;
   database('listitems').where('id', id)
     .del()
