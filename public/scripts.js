@@ -13,9 +13,11 @@ const handlePageLoad = async () => {
 const handleSubmit = async () => {
   let title = $('.title-input').val();
   let description = $('.description-input').val();
-  const results = await saveItemToDatabase(title, description);
-  prependListItem(title, description, results.id);
-  clearInputs();
+  if (title && description) {
+    const results = await saveItemToDatabase(title, description);
+    prependListItem(title, description, results.id);
+    clearInputs();
+  }
 };
 
 const handleDelete = async (event) => {
